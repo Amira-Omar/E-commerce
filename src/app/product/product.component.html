@@ -1,0 +1,18 @@
+<div *ngIf="product">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{product.img}}" alt="Card image cap" style="width:100%;height:300px">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <h4>{{ product.price | currency }}</h4>
+      <p class="card-text">{{product.description}}</p>
+      <a  (click)=" displayAomut()" class="btn btn-primary">Buy</a>
+      <br>
+      <div class="amount"  #myTestDiv>
+        <label>Enter Amout</label>
+      <input type="number" class="inpval" min="0" max="10" [(ngModel)]="amount">
+      <br>
+      <a  (click)="sendProductToCart(product)" class="btn btn-success confirm">Confirm</a>
+    </div>
+    </div>
+  </div>
+</div>

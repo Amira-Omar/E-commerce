@@ -1,0 +1,67 @@
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Price</th>
+        <th scope="col">Product Image</th>
+        <th scope="col">Product Description</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cartItem of cartItems; let i=index;">
+        <th scope="row">{{cartItem.id}}</th>
+        <td>{{cartItem.product.name}}</td>
+        <td>{{cartItem.product.price}}</td>
+        <td><img src="{{cartItem.product.img}}" style="width: 50px;height:50px;"></td>
+        <td>{{cartItem.product.description}}</td>
+        <input type="number" value="{{cartItem.amount}}">
+        <button (click)="sendDeleteOrder(i)" class="btn btn-danger">Delete</button>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="sendClearOrders()" class="btn btn-danger">Remove All</button>
+  |<button (click)="showFormMethod()" class="btn btn-success">CheckOut</button>
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" #showForm id="show">
+
+    <div class="form-group">
+      <label for="name">
+        Name
+      </label>
+      <input id="name" type="text"  formControlName="name" class="form-control">
+    </div>
+    <div formGroupName="address" class="form-group">
+      <h2>Address</h2>
+    
+      <label for="street">Street: </label>
+      <input id="street" type="text" formControlName="street" class="form-control">
+    
+      <label for="city">City: </label>
+      <input id="city" type="text" formControlName="city" class="form-control">
+    
+      <label for="state">State: </label>
+      <input id="state" type="text" formControlName="state" class="form-control">
+    
+      <label for="zip">Zip Code: </label>
+      <input id="zip" type="text" formControlName="zip" class="form-control">
+    </div>
+    <div formArrayName="payments" class="form-group">
+      <h2>payments</h2>
+      <button type="button" (click)="addPayments()" class="btn btn-success">+ Add payment</button>
+    
+      <div *ngFor="let payment of payments.controls; let i=index">
+        <!-- The repeated alias template -->
+        <label for="payments-{{ i }}">payment:</label>
+        <input id="payments-{{ i }}" type="text" formControlName="{{i}}" class="form-control">
+      </div>
+    </div>
+    <!-- formControlName="address" -->
+    <button class="btn btn-success" type="submit" [disabled]="!checkoutForm.valid">Confirm</button>
+  
+  </form>
+  <!-- <p>
+    <a routerLink="/shipping">Shipping Prices</a>
+  </p> -->
